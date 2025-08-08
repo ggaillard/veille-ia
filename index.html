@@ -420,8 +420,12 @@
                 </div>
                 
                 <div class="config-section">
-                    <label for="custom-sources">Sources personnalisées (une par ligne) :</label>
-                    <textarea id="custom-sources" rows="3" placeholder="https://example.com/ai-news&#10;https://blog.monentreprise.fr"></textarea>
+                    <label for="custom-sources">Sources personnalisées :</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="custom-source-input" placeholder="https://example.com/ai-news" style="flex:1;">
+                        <button class="btn" style="padding: 8px 16px; font-size: 1rem;" onclick="addCustomSource()">➕ Ajouter</button>
+                    </div>
+                    <ul id="custom-sources-list" style="list-style:none; padding-left:0; margin-bottom:10px;"></ul>
                 </div>
             </div>
             
@@ -444,7 +448,10 @@
                 
                 <div class="config-section">
                     <label for="keywords">Mots-clés prioritaires (séparés par des virgules) :</label>
-                    <input type="text" id="keywords" value="Mistral AI, Claude 4, GPT-5, agents IA, France 2030, IA Act, LLM, intelligence artificielle" placeholder="Mistral AI, agents IA, France...">
+                    <div style="position:relative;">
+                        <input type="text" id="keywords" value="Mistral AI, Claude 4, GPT-5, agents IA, France 2030, IA Act, LLM, intelligence artificielle" placeholder="Mistral AI, agents IA, France..." autocomplete="off" oninput="showKeywordSuggestions()" onkeydown="handleKeywordSuggestionKey(event)">
+                        <ul id="keyword-suggestions" style="position:absolute;top:100%;left:0;width:100%;background:white;border-radius:0 0 10px 10px;box-shadow:0 4px 12px rgba(0,0,0,0.08);z-index:10;list-style:none;padding:0;margin:0;display:none;"></ul>
+                    </div>
                 </div>
                 
                 <div class="config-section">
@@ -471,35 +478,66 @@
                 <h2><span class="emoji">🇫🇷</span> Focus France - Dernières Actualités</h2>
                 
                 <div id="france-news">
-                    <div class="news-item">
+                    <div class="news-item" tabindex="0" aria-label="IA Act - Échéance critique 2 août 2025">
                         <h4>🔥 IA Act - Échéance critique 2 août 2025</h4>
                         <div class="date">Aujourd'hui - 8 août 2025</div>
                         <div class="content">Mise en application des sanctions de l'IA Act européen. Amendes jusqu'à 35M€ ou 7% du CA mondial pour non-conformité aux pratiques interdites.</div>
+                        <button class="fav-btn" aria-label="Ajouter aux favoris" onclick="toggleFavorite(this)">⭐</button>
                     </div>
-                    
-                    <div class="news-item">
+                    <div class="news-item" tabindex="0" aria-label="Mistral AI : Levée de fonds de 1 milliard $">
                         <h4>💰 Mistral AI : Levée de fonds de 1 milliard $</h4>
                         <div class="date">Août 2025</div>
                         <div class="content">Mistral AI en négociations pour une valorisation de 10 milliards $. Construction de son premier datacenter dans l'Essonne. Objectif : 500M€ de revenus en 2025.</div>
+                        <button class="fav-btn" aria-label="Ajouter aux favoris" onclick="toggleFavorite(this)">⭐</button>
                     </div>
-                    
-                    <div class="news-item">
+                    <div class="news-item" tabindex="0" aria-label="Stratégie Nationale IA - Phase 3">
                         <h4>🎯 Stratégie Nationale IA - Phase 3</h4>
                         <div class="date">Février 2025</div>
                         <div class="content">109 milliards € d'investissements privés annoncés. 35 sites "prêts à l'emploi" identifiés pour des datacenters. Objectif : 2000 étudiants formés en 1er cycle.</div>
+                        <button class="fav-btn" aria-label="Ajouter aux favoris" onclick="toggleFavorite(this)">⭐</button>
                     </div>
-                    
-                    <div class="news-item">
+                    <div class="news-item" tabindex="0" aria-label="Partenariats stratégiques Mistral">
                         <h4>🤝 Partenariats stratégiques Mistral</h4>
                         <div class="date">Juillet 2025</div>
                         <div class="content">Accords avec Veolia, France Travail, Cisco. Intégration AFP dans Le Chat. Support présidentiel d'Emmanuel Macron pour l'alternative française.</div>
+                        <button class="fav-btn" aria-label="Ajouter aux favoris" onclick="toggleFavorite(this)">⭐</button>
                     </div>
-                    
-                    <div class="news-item">
+                    <div class="news-item" tabindex="0" aria-label="Le Chat - Nouvelles fonctionnalités">
                         <h4>🆕 Le Chat - Nouvelles fonctionnalités</h4>
                         <div class="date">Juillet 2025</div>
                         <div class="content">Mode vocal Voxtral, recherche approfondie, édition d'images, projets collaboratifs. 1M+ téléchargements en 2 semaines, #1 App Store France.</div>
+                        <button class="fav-btn" aria-label="Ajouter aux favoris" onclick="toggleFavorite(this)">⭐</button>
                     </div>
+        .fav-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #f1c40f;
+            float: right;
+            margin-left: 10px;
+            transition: transform 0.2s;
+        }
+        .fav-btn.favorited {
+            color: #e67e22;
+            transform: scale(1.2);
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.2);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
                 </div>
                 
                 <button class="btn" onclick="refreshFranceNews()" style="background: rgba(255,255,255,0.2); color: white;">🔄 Actualiser</button>
@@ -623,6 +661,85 @@
     </div>
 
     <script>
+        // Suggestions automatiques pour les mots-clés
+        const KEYWORD_LIST = [
+            'Mistral AI', 'Claude 4', 'GPT-5', 'agents IA', 'France 2030', 'IA Act', 'LLM', 'NLP', 'Computer Vision', 'Data Science', 'Deep Learning', 'Ethique IA', 'OpenAI', 'Anthropic', 'INRIA', 'Scaleway', 'ArXiv', 'TechCrunch', 'Microsoft', 'Chatbot', 'Voxtral', 'Devstral', 'Stratégie Nationale IA', 'Datacenter', 'Partenariat', 'Réglementation', 'Investissement', 'Startups IA', 'Recherche IA', 'Industrie IA'
+        ];
+
+        function showKeywordSuggestions() {
+            const input = document.getElementById('keywords');
+            const val = input.value.split(',').pop().trim().toLowerCase();
+            const list = document.getElementById('keyword-suggestions');
+            if (!val) { list.style.display = 'none'; return; }
+            const matches = KEYWORD_LIST.filter(k => k.toLowerCase().includes(val) && !input.value.toLowerCase().includes(k.toLowerCase()));
+            list.innerHTML = '';
+            if (matches.length === 0) { list.style.display = 'none'; return; }
+            matches.forEach(k => {
+                const li = document.createElement('li');
+                li.textContent = k;
+                li.style.padding = '8px 12px';
+                li.style.cursor = 'pointer';
+                li.onmousedown = function(e) {
+                    e.preventDefault();
+                    selectKeywordSuggestion(k);
+                };
+                list.appendChild(li);
+            });
+            list.style.display = 'block';
+        }
+
+        function selectKeywordSuggestion(keyword) {
+            const input = document.getElementById('keywords');
+            let parts = input.value.split(',');
+            parts[parts.length-1] = ' ' + keyword;
+            input.value = parts.join(',').replace(/^,\s*/, '');
+            document.getElementById('keyword-suggestions').style.display = 'none';
+        }
+
+        function handleKeywordSuggestionKey(e) {
+            const list = document.getElementById('keyword-suggestions');
+            if (list.style.display === 'block' && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+                e.preventDefault();
+                const items = Array.from(list.children);
+                let idx = items.findIndex(li => li.classList.contains('active'));
+                if (e.key === 'ArrowDown') idx = (idx+1)%items.length;
+                if (e.key === 'ArrowUp') idx = (idx-1+items.length)%items.length;
+                items.forEach(li => li.classList.remove('active'));
+                items[idx].classList.add('active');
+                items[idx].scrollIntoView({block:'nearest'});
+            } else if (list.style.display === 'block' && (e.key === 'Enter' || e.key === 'Tab')) {
+                const active = Array.from(list.children).find(li => li.classList.contains('active'));
+                if (active) {
+                    selectKeywordSuggestion(active.textContent);
+                    e.preventDefault();
+                }
+            }
+        }
+        // Toast de confirmation
+        function showToast(message) {
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                toast.className = 'toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2000);
+        }
+
+        // Système de favoris
+        function toggleFavorite(btn) {
+            btn.classList.toggle('favorited');
+            if (btn.classList.contains('favorited')) {
+                showToast('Ajouté aux favoris !');
+            } else {
+                showToast('Retiré des favoris.');
+            }
+        }
         let monitoringActive = false;
         let monitoringInterval = null;
         let articlesCount = 0;
@@ -903,6 +1020,43 @@ Application de veille déployée sur : ${window.location.href}
         
         // Sauvegarder les préférences lors des changements
         document.addEventListener('change', savePreferences);
+
+        // Gestion dynamique des sources personnalisées
+        function addCustomSource() {
+            const input = document.getElementById('custom-source-input');
+            const url = input.value.trim();
+            if (!url) return showToast('Veuillez entrer une URL.');
+            const list = document.getElementById('custom-sources-list');
+            // Vérifie si déjà présent
+            for (let li of list.children) {
+                if (li.firstChild && li.firstChild.textContent === url) {
+                    showToast('Source déjà ajoutée.');
+                    return;
+                }
+            }
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.textContent = url;
+            li.appendChild(span);
+            li.style.padding = '6px 0';
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.justifyContent = 'space-between';
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = '❌';
+            removeBtn.className = 'btn btn-secondary';
+            removeBtn.style.padding = '2px 8px';
+            removeBtn.style.fontSize = '1rem';
+            removeBtn.setAttribute('aria-label', 'Supprimer la source');
+            removeBtn.onclick = function() {
+                list.removeChild(li);
+                showToast('Source supprimée.');
+            };
+            li.appendChild(removeBtn);
+            list.appendChild(li);
+            input.value = '';
+            showToast('Source ajoutée !');
+        }
     </script>
 </body>
 </html>
