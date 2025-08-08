@@ -17,9 +17,6 @@ Ce projet centralise les dernières actualités, recherches et développements d
 - 📊 Tableaux de bord analytiques
 - 🔔 Notifications personnalisées
 - 📱 Interface responsive
-- 🌙 Mode sombre/clair
-
-## 🚀 Démarrage rapide
 
 ### Prérequis
 
@@ -38,29 +35,52 @@ cd veille-ia
 npm install
 # ou
 pip install -r requirements.txt
+## 🚀 Démarrage rapide
 
-# Démarrer le serveur de développement
-npm run dev
-# ou
-python manage.py runserver
-```
+### Prérequis
 
+- Un navigateur web moderne
+- Un compte GitHub (pour le déploiement)
+
+### Installation
+
+1. Cloner le repository :
+	```bash
+	git clone https://github.com/username/veille-ia.git
+	cd veille-ia
+	```
+2. Ouvrir le fichier `index.html` dans votre navigateur.
+
+### Déploiement sur GitHub Pages
+
+1. Sur GitHub, allez dans les paramètres du dépôt.
+2. Activez GitHub Pages (branche `main`, dossier racine).
+3. L'application sera accessible à l'URL générée par GitHub Pages.
+
+> Aucun backend ou installation de dépendances n'est nécessaire.
+
+## ✨ Fonctionnalités
+
+- � Agrégation d'actualités IA en temps réel
+- 🔍 Recherche avancée par catégories
+- 📊 Tableaux de bord analytiques
+- 📱 Interface responsive
+- 🌙 Mode sombre/clair
+- ⭐ Système de favoris sur les actualités
+- � Suggestions automatiques de mots-clés
+- ➕ Ajout dynamique de sources personnalisées
 ### Avec Docker
+## 🖥️ Expérience Utilisateur
 
-```bash
-docker-compose up -d
-```
+- Interface responsive et accessible
+- Tableau de bord personnalisé
+- Recherche et filtres avancés
+- Mode sombre/clair automatique
+- Notifications et alertes personnalisées (à venir)
+- Système de favoris sur les actualités
 
-## 📖 Documentation
-
-- [📋 Guide d'installation](docs/INSTALLATION.md)
+- [� Guide d'installation](docs/INSTALLATION.md)
 - [🛠️ Guide de développement](docs/DEVELOPMENT.md)
-- [🔧 Configuration](docs/CONFIGURATION.md)
-- [📡 API Documentation](docs/API.md)
-- [🎨 Guide de style](docs/STYLE_GUIDE.md)
-
-## 🤝 Contribution
-
 Les contributions sont les bienvenues ! Consultez notre [guide de contribution](CONTRIBUTING.md).
 
 # 🤝 Guide de Contribution
@@ -83,13 +103,21 @@ Merci de votre intérêt pour contribuer à Veille IA ! Ce guide vous aidera à 
 ```bash
 # Fork et clone
 git clone https://github.com/votre-username/veille-ia.git
-cd veille-ia
-
-# Configuration de l'environnement de développement
 npm install
-# ou
-pip install -r requirements-dev.txt
+## 🤝 Contribution
 
+Les contributions sont les bienvenues !
+
+### Processus simplifié
+
+1. Forkez le projet sur GitHub
+2. Clonez votre fork
+3. Créez une branche pour vos modifications
+4. Modifiez le code (principalement `index.html`)
+5. Commitez et poussez vos changements
+6. Ouvrez une Pull Request
+
+> Aucun environnement Node.js ou Python requis pour contribuer à l'application statique.
 # Pre-commit hooks
 pre-commit install
 ```
@@ -128,9 +156,7 @@ git checkout -b type/description-courte
 
 Distribué sous licence MIT. Voir `LICENSE` pour plus d'informations.
 
-## 👥 Équipe
 
-- **Mainteneur** - [@username](https://github.com/username)
 
 ## 🙏 Remerciements
 
