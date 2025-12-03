@@ -1,7 +1,4 @@
-Parfait 👍
-Voici une **nouvelle version améliorée** de ton README pour intégrer toutes les nouveautés :
-
----
+--
 
 # 🤖 Veille IA — Plateforme de veille sur l’Intelligence Artificielle
 
@@ -10,7 +7,7 @@ Voici une **nouvelle version améliorée** de ton README pour intégrer toutes l
 [![GitHub stars](https://img.shields.io/github/stars/username/veille-ia)](https://github.com/username/veille-ia/stargazers)
 
 > 📊 **Veille IA** est une plateforme moderne de veille technologique qui centralise actualités, recherches et innovations dans le domaine de l’Intelligence Artificielle, avec un **focus France**.
-
+ [https://ggaillard.github.io/veille-ia/](https://ggaillard.github.io/veille-ia/)
 ---
 
 ## 🎯 Objectif
